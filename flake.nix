@@ -6,9 +6,10 @@
     # Nixpkgs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
     systems.url = "github:nix-systems/default";
 
-    # Numtide utilities
+    # Flake utilities
     blueprint = {
       url = "github:numtide/blueprint";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +18,10 @@
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -40,8 +45,20 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
+      inputs.disko.follows = "disko";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixos-stable.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
+    nixos-facter-modules = {
+      url = "github:numtide/nixos-facter-modules";
+    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
+      inputs.nixlib.follows = "nixpkgs-lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
@@ -51,6 +68,7 @@
     # Nix Utilities
     nix-fast-build = {
       url = "github:Mic92/nix-fast-build";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
@@ -63,6 +81,5 @@
       prefix = "nix/";
       # Only support systems that have at least one host
       systems = ["x86_64-linux"];
-      nixpkgs.config.allowUnfree = true;
     };
 }

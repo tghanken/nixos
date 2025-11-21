@@ -1,22 +1,33 @@
 {
-  pkgs,
   inputs,
   flake,
+  modulesPath,
   ...
 }: {
   imports = [
-    flake.nixosModules.host-shared
+    # QEMU Guest for virtualized host
+    (modulesPath + "/profiles/qemu-guest.nix")
+
+    # Standard nixos-anywhere modules
     inputs.disko.nixosModules.disko
+    inputs.nixos-facter-modules.nixosModules.facter
+    {
+      config.facter.reportPath =
+        if builtins.pathExists ./facter.json
+        then ./facter.json
+        else throw "Have you forgotten to run nixos-anywhere with `--generate-hardware-config nixos-facter ./facter.json`?";
+    }
+
+    # Additional NixOs modules from this flake
+    flake.nixosModules.host-shared
   ];
 
-  nixpkgs.hostPlatform = "x86_64-linux";
+  # Required for nixos-anywhere
+  disko.devices = import ./disk-config.nix;
+  networking.hostId = "a39c3d72"; # Generate using `head -c 8 /etc/machine-id`
 
-  # on nixos this either isNormalUser or isSystemUser is required to create the user.
+  # Setup users
   users.users.me.isNormalUser = true;
-
-  # for testing purposes only, remove on bootable hosts.
-  boot.loader.grub.enable = pkgs.lib.mkDefault false;
-  fileSystems."/".device = pkgs.lib.mkDefault "/dev/null";
 
   system.stateVersion = "25.05"; # initial nixos state
 }
