@@ -1,7 +1,6 @@
 {
   inputs,
   flake,
-  modulesPath,
   ...
 }: {
   imports = [
@@ -40,5 +39,5 @@
     hashedPassword = "$6$aVX13r8lw5yvxWJZ$TrXrqKub2dJArKGyZ75l5AQC.yIh8ysgigZniYT.ZkvQRvjgb45oFNUnFIUd5xTfE0JXzFzPHwMWdJcdth9Tj1";
   };
 
-  system.stateVersion = "25.05"; # initial nixos state
+  system.stateVersion = "25.11"; # initial nixos state
 }
