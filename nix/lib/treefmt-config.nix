@@ -26,8 +26,5 @@
     enable = true;
     priority = 1;
   };
-  programs.typos = {
-    enable = true;
-  };
   programs.yamlfmt.enable = true;
 }
