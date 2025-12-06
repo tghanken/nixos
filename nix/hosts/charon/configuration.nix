@@ -19,7 +19,8 @@
     }
 
     # Additional NixOs modules from this flake
-    flake.nixosModules.host-shared
+    flake.nixosModules.bootloader
+    flake.nixosModules.bootstrap
   ];
 
   # Required for nixos-anywhere

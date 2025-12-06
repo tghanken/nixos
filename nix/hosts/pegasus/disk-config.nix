@@ -59,7 +59,6 @@
         };
       };
       rootFsOptions = {
-        ashift = "12";
         xattr = "sa";
         compression = "lz4";
         atime = "off";
