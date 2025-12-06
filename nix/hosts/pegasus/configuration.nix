@@ -1,6 +1,7 @@
 {
   inputs,
   flake,
+  pkgs,
   ...
 }: {
   imports = [
@@ -25,6 +26,9 @@
   disko.devices = import ./disk-config.nix;
   networking.hostName = "pegasus";
   networking.hostId = "8561a55b"; # Generate using `head -c 8 /etc/machine-id`
+
+  # Fixes broken zfs package. See https://github.com/NixOS/nixos-hardware/issues/1675
+  boot.kernelPackages = pkgs.linuxPackages_6_17;
 
   # Setup users
   users.users.tghanken = {
