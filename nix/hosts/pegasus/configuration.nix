@@ -1,13 +1,9 @@
 {
   inputs,
   flake,
-  modulesPath,
   ...
 }: {
   imports = [
-    # QEMU Guest for virtualized host
-    (modulesPath + "/profiles/qemu-guest.nix")
-
     # Standard nixos-anywhere modules
     inputs.disko.nixosModules.disko
     inputs.nixos-facter-modules.nixosModules.facter
@@ -18,17 +14,25 @@
         else throw "Have you forgotten to run nixos-anywhere with `--generate-hardware-config nixos-facter ./facter.json`?";
     }
 
+    # Nixos hardware additions
+    inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
+
+    # Add user modules
+    flake.modules.users.tghanken
+
     # Additional NixOs modules from this flake
     flake.nixosModules.bootloader
     flake.nixosModules.bootstrap
+    flake.nixosModules.desktop
+    flake.nixosModules.kernel
+    flake.nixosModules.networking
+    flake.nixosModules.sound
   ];
 
   # Required for nixos-anywhere
   disko.devices = import ./disk-config.nix;
-  networking.hostId = "a39c3d72"; # Generate using `head -c 8 /etc/machine-id`
+  networking.hostName = "pegasus";
+  networking.hostId = "8561a55b"; # Generate using `head -c 8 /etc/machine-id`
 
-  # Setup users
-  users.users.me.isNormalUser = true;
-
-  system.stateVersion = "25.05"; # initial nixos state
+  system.stateVersion = "25.11"; # initial nixos state
 }
