@@ -1,3 +1,3 @@
 {inputs, ...}: {
-  imports = [inputs.self.homeModules.home-shared];
+  imports = [inputs.self.homeModules.tghanken];
 }
