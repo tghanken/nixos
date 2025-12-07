@@ -9,11 +9,10 @@ inputs.nixos-generators.nixosGenerate {
   modules = [
     flake.nixosModules.bootstrap
     flake.nixosModules.kernel
+    flake.nixosModules.networking
     flake.modules.users.tghanken
     {
       networking.hostId = "12345678";
-      networking.networkmanager.wifi.backend = "iwd";
-      networking.wireless.iwd.enable = true;
       boot.supportedFilesystems = ["zfs"];
     }
   ];

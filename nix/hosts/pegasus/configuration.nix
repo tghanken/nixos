@@ -23,7 +23,10 @@
     # Additional NixOs modules from this flake
     flake.nixosModules.bootloader
     flake.nixosModules.bootstrap
+    flake.nixosModules.desktop
     flake.nixosModules.kernel
+    flake.nixosModules.networking
+    flake.nixosModules.sound
   ];
 
   # Required for nixos-anywhere
