@@ -22,7 +22,20 @@ with config; {
     flake.nixosModules.desktop
     flake.nixosModules.kernel
     flake.nixosModules.networking
+    flake.nixosModules.secrets
     flake.nixosModules.sound
+    flake.nixosModules.tailscale
+
+    flake.modules.desktop.jetbrains
+    flake.modules.desktop.ollama
+    flake.modules.desktop.steam
+
+    flake.modules.builders.client
+    flake.modules.builders.server
+
+    flake.modules.utils.auto-upgrade
+    flake.modules.utils.earlyoom
+    flake.modules.utils.docker
   ];
 
   networking.hostName = "inwin-tower"; # Define your hostname.
