@@ -1,4 +1,7 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  email = "tghanken@gmail.com";
+  name = "Taylor Hanken";
+in {
   home.username = "tghanken";
   home.homeDirectory = "/home/tghanken";
 
@@ -41,16 +44,18 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "Taylor Hanken";
-    userEmail = "tghanken@gmail.com";
+    settings = {
+      user = {
+        inherit name email;
+      };
+    };
   };
 
   programs.jujutsu = {
     enable = true;
     settings = {
       user = {
-        email = "tghanken@gmail.com";
-        name = "Taylor Hanken";
+        inherit name email;
       };
       aliases = {
         l = ["log" "-r" "(trunk()..@):: | (trunk()..@)-- | trunk()"];
