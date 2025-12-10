@@ -27,6 +27,8 @@
     flake.nixosModules.kernel
     flake.nixosModules.networking
     flake.nixosModules.sound
+
+    flake.modules.desktop.steam
   ];
 
   # Required for nixos-anywhere
