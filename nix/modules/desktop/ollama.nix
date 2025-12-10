@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   users.users.ollama = {
     isNormalUser = false;
     description = "Ollama";
